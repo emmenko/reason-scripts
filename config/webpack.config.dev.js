@@ -124,7 +124,10 @@ module.exports = {
       // First, run the linter.
       // It's important to do this before Babel processes the JS.
       {
-        test: /\.(js|jsx|mjs)$/,
+        test: function testForJsFilesExcludingBsFiles(fileName) {
+          if (fileName.endsWith('.bs.js')) return false;
+          return /\.(js|jsx|mjs)$/.test(fileName);
+        },
         enforce: 'pre',
         use: [
           {
